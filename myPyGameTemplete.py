@@ -14,7 +14,7 @@
         # - Anything that has happened since the last time it was updated.
 
     # RENDER: Drawing everything to the screen
-        # - something changed, now we have to draw that
+        # - something changed/updated, now we have to draw that
         # - Character moves 'x' places to right, draw that number to the right
 
 # SPRITES: An object on the screen that moves around... How you make objects that move around the screen.
@@ -24,8 +24,8 @@ import pygame
 import random
 
 # tell pyGame to create a window.
-WIDTH = 480 
-HEIGHT = 640
+WIDTH = 600 
+HEIGHT = 600
 FPS = 30    # how fast our screen will be updated
 
 # List of colors I could use often, quicker to refer to later
@@ -39,22 +39,25 @@ BLUE = (0, 0, 255)
 pygame.init() # initilizies pygame and gets it ready to go. 
 pygame.mixer.init() # the mixer handles all the music, sound fx in game
 
+# bkgd = pygame.image.load('background1.png').convert()
+# x = 0
 # Create our window:
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Create what our window header displays
 pygame.display.set_caption("It's PyGame by your very own...")
+
 # Create the clock: handles the speed & how fast we're going to make sure we are running the rt FPS
 clock = pygame.time.Clock()
 
 # Make our group of sprites
-all_sprites = pygame.sprite.Group() # a sprite group that creates a new empty list of our sprites. 
+all_sprites = pygame.sprite.Group() # creates a new group, that's empty, and we're going to name it 'all_sprites' 
                                     # it also makes it easier to how it updates; refer to updates further down
 
 
 
 
 # THE GAME LOOP: our core 
-    # we need a while loop but we also need a way to stop it by creating running = true
+    # we need a while loop but we also need a way to stop it. DO THIS BY STARTING WITH: running = True
 running = True  #if running is ever set to false, the loop will end and the game is over
 while running:
     # first want to make sure our game runs at the right speed.
@@ -74,11 +77,15 @@ while running:
     # UPDATE - don't bog down and create too much or you will create L-A-G
         # *where we figure out what each sprite needs to do; does it need to move, animate; WHAT NEEDS TO CHANGE ABOUT IT
     all_sprites.update() # easy to update all of our sprites; due in part to line 50 where we created all_sprits
+   
+   
     # DRAW / RENDER
         # - tell the program to draw the sprite on the screen. To prevent it getting messy, we use SPRITE GROUPS which is a collection
         #   of sprite groups.
     screen.fill((RED)) # much easier to define as a constant at top to use multipe times
     all_sprites.draw(screen) # you want to draw sprites, okay, where at, on the screen; cool, no problem. DRAWING SPRITES ON SCREEN
+    
+    
     
     # now **AFTER** drawing everything, flip the display; neeeds to be last because if you 
     # flipped the display & then you 'drew on your white board', nobody would see it.
